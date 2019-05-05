@@ -1,5 +1,7 @@
 
 #include "V5CrossCompile.h"
+#include "V5Win32Compiler.h"
+#include "V5Win64Compiler.h"
 
 #define WIN32 0
 #define WIN64 1
@@ -20,11 +22,33 @@ V5CrossCompile::V5CrossCompile()
     {
         compilers[i] = NULL;
     }
-
+    compilers[WIN32] = new V5Win32Compiler;
+    compilers[WIN64] = new V5Win64Compiler;
 }
 
 bool V5CrossCompile::Compile()
 {
+    if (compilers[WIN32] == NULL || system((compilers[WIN32]->GetCommandLine() + " --help").c_str()) != 0)
+    {
+#if WIN32
+#elif __APPLE__
+        log += "/usr/local/bin/i686-w64-mingw32-g++ not found, please run the following commands to install minGW:\nbrew install FiloSottile/musl-cross/musl-cross\nbrew install mingw-w64\n";
+        return false;
+#else
+        
+#endif
+    }
+    if (compilers[WIN64] == NULL || system((compilers[WIN64]->GetCommandLine() + " --help").c_str()) != 0)
+    {
+#if WIN32
+#elif __APPLE__
+        log += "/usr/local/bin/x86_64-w64-mingw32-g++ not found, please run the following commands to install minGW:\nbrew install FiloSottile/musl-cross/musl-cross\nbrew install mingw-w64\n";
+        return false;
+#else
+        
+#endif
+    }
+    
     //check cmake
     //check for compilers
     //compile check for errors
@@ -130,5 +154,11 @@ string V5CrossCompile::GetOutputName()
 
 int main()
 {
+    V5CrossCompile cc;
+    if (!cc.Compile())
+    {
+        cout << cc.GetLog() << endl;
+    }
+    
     return 0;
 }

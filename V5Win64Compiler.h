@@ -4,20 +4,14 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "V5ICompiler.h"
+#include "V5Compiler.h"
 
 using namespace std;
 
-class V5Compiler : public V5ICompiler
+class V5Win64Compiler : public V5Compiler
 {
-protected:
-    string cmdline;
-    string args;
-    string outputName;
-    vector<string> files;
-    vector<string> libraries;
-
 public:
+    V5Win64Compiler();
     virtual void SetCommandLine(const string& cmdline);
     virtual string GetCommandLine();
 

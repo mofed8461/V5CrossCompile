@@ -9,6 +9,10 @@ V5CrossCompile.cpp
 V5ICompiler.h
 V5Compiler.h
 V5Compiler.cpp
+V5Win32Compiler.h
+V5Win32Compiler.cpp
+V5Win64Compiler.h
+V5Win64Compiler.cpp
 )
 
 add_executable(V5CrossCompile ${files}) 
