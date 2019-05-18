@@ -150,7 +150,7 @@ string V5CrossCompile::GetOutputName()
 }
 
 
-
+#include <xlocale.h>
 
 int main()
 {

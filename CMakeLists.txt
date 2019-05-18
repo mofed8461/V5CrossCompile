@@ -13,7 +13,15 @@ V5Win32Compiler.h
 V5Win32Compiler.cpp
 V5Win64Compiler.h
 V5Win64Compiler.cpp
+V5Library.h
+V5Library.cpp
 )
 
 add_executable(V5CrossCompile ${files}) 
 target_link_libraries(V5CrossCompile )
+
+
+add_executable(testEXE V5Library.h V5Library.cpp mainTest.cpp)
+
+add_library(testLib SHARED V5Library.h V5Library.cpp lib.cpp lib.h)
+target_compile_definitions(testLib PUBLIC EXPORTED)
