@@ -1,7 +1,27 @@
 #include "lib.h"
+#include "V5SharedLibrary.h"
 
-
-EXPORTED char* hello()
+std::string hello()
 {
-  return "hello lib";
+#if _WIN32
+	return "hello world, this function called from DLL file";
+#elif __APPLE__
+	return "hello world, this function called from dylib file";
+#else
+	return "hello world, this function called from so file";
+#endif
+}
+
+
+
+int testClass::sum(int x, int y)
+{
+	return x + y;
+}
+
+
+
+testInterface* CreateTestClass()
+{
+	return new testClass;
 }
